@@ -20,9 +20,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Testcontainers
 @SpringBootTest(classes = DemoKafkaApplication.class)
-@ActiveProfiles("it")
+@ActiveProfiles("integration")
 @DirtiesContext
-public class KafkaTestContainersTest {
+public class KafkaIntegrationTest {
 
     @Container
     public static ConfluentKafkaContainer kafka = new ConfluentKafkaContainer("confluentinc/cp-kafka");
