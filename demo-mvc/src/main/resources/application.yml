@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: demo-mvc
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mydb
+    username: postgres
+    password: sa
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    show-sql: true

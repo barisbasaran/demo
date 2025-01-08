@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: demo-kafka
+
+server:
+  port: 8080
+
+test:
+  topic: test-topic-1
+  group-id: baeldung

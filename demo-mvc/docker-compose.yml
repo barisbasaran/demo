@@ -1,0 +1,26 @@
+services:
+  db:
+    image: "postgres:latest"
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: "mydb"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "sa"
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://db:5432/mydb"
+    depends_on:
+      - db
+  web:
+    build: ./web
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - app
+    profiles:
+      - local

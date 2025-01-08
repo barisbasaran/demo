@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: demo1-test
+  datasource:
+    url: jdbc:tc:postgresql:17.2:///it-db
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+  jpa:
+    hibernate:
+      ddl-auto: update
