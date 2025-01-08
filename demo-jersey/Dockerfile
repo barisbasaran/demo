@@ -1,4 +1,4 @@
-FROM maven:3.9.9-eclipse-temurin-23-alpine  AS builder
+FROM openjdk:23  AS builder
 
 RUN mkdir /project
 
@@ -6,7 +6,7 @@ COPY . /project
 
 WORKDIR /project
 
-RUN mvn clean package
+RUN ./mvnw clean package
 
 FROM openjdk:23
 
