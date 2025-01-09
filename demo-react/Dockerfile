@@ -2,8 +2,8 @@ FROM node:latest  AS builder
 
 RUN mkdir /project
 
-COPY ./demo2/public /project
-COPY ./demo2/src /project
+COPY ./demo2/public /project/public
+COPY ./demo2/src /project/src
 COPY ./demo2/package.json /project
 
 WORKDIR /project
