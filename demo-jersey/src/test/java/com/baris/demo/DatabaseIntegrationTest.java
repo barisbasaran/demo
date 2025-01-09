@@ -23,8 +23,8 @@ public class DatabaseIntegrationTest {
 
     @Container
     public static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:17.2")
-        .withDatabaseName("it-db")
-        .withUsername("sa")
+        .withDatabaseName("mydb2")
+        .withUsername("postgres")
         .withPassword("sa");
 
     @Autowired

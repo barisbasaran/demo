@@ -2,7 +2,7 @@ spring:
   application:
     name: demo1-test
   datasource:
-    url: jdbc:tc:postgresql:17.2:///it-db
+    url: jdbc:tc:postgresql:17.2:///mydb2
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
   jpa:
     hibernate:
