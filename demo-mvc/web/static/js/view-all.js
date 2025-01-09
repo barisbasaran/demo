@@ -7,13 +7,12 @@ $(document).ready(function () {
             let table = $('#clients-table').DataTable();
             for (let i = 0; i < data.length; i++) {
                 table.row.add([
-                    data[i].name,
-                    data[i].email,
-                    '<a href="/view.html?clientId=' + data[i].id + '">View</a>'
+                    '<a href="/view.html?clientId=' + data[i].id + '">' + data[i].name + '</a>',
+                    data[i].email
                 ]).draw(false);
             }
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             alert(xhr.responseText);
         }
     });
