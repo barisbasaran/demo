@@ -13,7 +13,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ActiveProfiles("unit")
-public class HelloResourceITest {
+public class HelloResourceTest {
 
 	@Autowired
 	private TestRestTemplate template;
