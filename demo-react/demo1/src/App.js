@@ -63,8 +63,12 @@ export default function Game() {
     const currentSquares = history[currentMove];
 
     function handlePlay(nextSquares) {
-        // Here, [...history, nextSquares] creates a new array that contains all the items in history, followed by nextSquares.
-        // (You can read the ...history spread syntax as “enumerate all the items in history”.)
+        // You will now make two changes to the Game’s handlePlay function which is called when you click on a square.
+        // If you “go back in time” and then make a new move from that point, you only want to keep the history up to that point.
+        // Instead of adding nextSquares after all items (... spread syntax) in history,
+        // you’ll add it after all items in history.slice(0, currentMove + 1) so that you’re only keeping that portion of the old history.
+        // Each time a move is made, you need to update currentMove to point to the latest history entry.
+
         const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
         setHistory(nextHistory);
         setCurrentMove(nextHistory.length - 1);
