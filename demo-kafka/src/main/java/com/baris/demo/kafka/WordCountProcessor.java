@@ -3,12 +3,10 @@ package com.baris.demo.kafka;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
-import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StoreQueryParameters;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.Grouped;
-import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Materialized;
 import org.apache.kafka.streams.state.QueryableStoreTypes;
@@ -29,10 +27,8 @@ public class WordCountProcessor {
 
     @Autowired
     void buildPipeline(StreamsBuilder streamsBuilder) {
-        KStream<String, String> messageStream = streamsBuilder
-            .stream("input-topic", Consumed.with(STRING_SERDE, STRING_SERDE));
-
-        KTable<String, Long> wordCounts = messageStream
+        KTable<String, Long> wordCounts = streamsBuilder
+            .stream("input-topic", Consumed.with(STRING_SERDE, STRING_SERDE))
             .flatMapValues(value -> Arrays.asList(value.toLowerCase().split("\\W+")))
             .groupBy((key, value) -> value, Grouped.with(STRING_SERDE, STRING_SERDE))
             .count(Materialized.as("counts"));
