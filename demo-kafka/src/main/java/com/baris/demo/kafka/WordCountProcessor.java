@@ -1,23 +1,31 @@
 package com.baris.demo.kafka;
 
+import lombok.AllArgsConstructor;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.streams.KafkaStreams;
+import org.apache.kafka.streams.StoreQueryParameters;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.Grouped;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Materialized;
-import org.apache.kafka.streams.kstream.ValueMapper;
+import org.apache.kafka.streams.state.QueryableStoreTypes;
+import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.kafka.config.StreamsBuilderFactoryBean;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
-@Component
+@Service
+@AllArgsConstructor
 public class WordCountProcessor {
 
     private static final Serde<String> STRING_SERDE = Serdes.String();
+
+    private final StreamsBuilderFactoryBean streamsBuilderFactoryBean;
 
     @Autowired
     void buildPipeline(StreamsBuilder streamsBuilder) {
@@ -30,5 +38,12 @@ public class WordCountProcessor {
             .count(Materialized.as("counts"));
 
         wordCounts.toStream().to("output-topic");
+    }
+
+    public Long getWordCount(String word) {
+        ReadOnlyKeyValueStore<String, Long> counts = streamsBuilderFactoryBean
+            .getKafkaStreams()
+            .store(StoreQueryParameters.fromNameAndType("counts", QueryableStoreTypes.keyValueStore()));
+        return counts.get(word);
     }
 }
