@@ -12,6 +12,7 @@ export default function Board() {
     const [squares, setSquares] = useState(Array(9).fill(null));
 
     function handleClick(i) {
+        // make a copy of the squares array
         const nextSquares = squares.slice();
         nextSquares[i] = 'X';
         setSquares(nextSquares);
