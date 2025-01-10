@@ -23,7 +23,7 @@ public class MessageController {
 
     @PostMapping("/message")
     public void addMessage(@RequestBody String message) {
-        kafkaProducer.send(message);
+        kafkaProducer.send("input-topic", message);
     }
 
     @GetMapping("/count/{word}")

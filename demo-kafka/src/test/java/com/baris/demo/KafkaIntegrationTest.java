@@ -42,7 +42,7 @@ public class KafkaIntegrationTest {
     public void givenKafkaDockerContainer_whenSendingWithSimpleProducer_thenMessageReceived() throws Exception {
         String data = "Sending with our own simple KafkaProducer";
 
-        producer.send(data);
+        producer.send("output-topic", data);
 
         boolean messageConsumed = consumer.getLatch().await(10, SECONDS);
         assertThat(messageConsumed).isTrue();
