@@ -7,10 +7,8 @@ import org.apache.kafka.streams.StoreQueryParameters;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.Grouped;
-import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Materialized;
 import org.apache.kafka.streams.state.QueryableStoreTypes;
-import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.config.StreamsBuilderFactoryBean;
 import org.springframework.stereotype.Service;
@@ -27,19 +25,19 @@ public class WordCountProcessor {
 
     @Autowired
     void buildPipeline(StreamsBuilder streamsBuilder) {
-        KTable<String, Long> wordCounts = streamsBuilder
+        streamsBuilder
             .stream("input-topic", Consumed.with(STRING_SERDE, STRING_SERDE))
             .flatMapValues(value -> Arrays.asList(value.toLowerCase().split("\\W+")))
             .groupBy((key, value) -> value, Grouped.with(STRING_SERDE, STRING_SERDE))
-            .count(Materialized.as("counts"));
-
-        wordCounts.toStream().to("output-topic");
+            .count(Materialized.as("counts"))
+            .toStream()
+            .to("output-topic");
     }
 
     public Long getWordCount(String word) {
-        ReadOnlyKeyValueStore<String, Long> counts = streamsBuilderFactoryBean
+        return (Long) streamsBuilderFactoryBean
             .getKafkaStreams()
-            .store(StoreQueryParameters.fromNameAndType("counts", QueryableStoreTypes.keyValueStore()));
-        return counts.get(word);
+            .store(StoreQueryParameters.fromNameAndType("counts", QueryableStoreTypes.keyValueStore()))
+            .get(word);
     }
 }
