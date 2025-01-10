@@ -1,10 +1,11 @@
 spring:
   application:
     name: demo-kafka
+  kafka:
+    bootstrap-servers: localhost:9092
+    streams:
+      state:
+        dir: /tmp/kafka-streams
 
 server:
   port: 8080
-
-test:
-  topic: test-topic-1
-  group-id: baeldung

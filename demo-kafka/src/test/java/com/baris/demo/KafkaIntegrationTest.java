@@ -33,9 +33,6 @@ public class KafkaIntegrationTest {
     @Autowired
     private KafkaProducer producer;
 
-    @Value("${test.topic}")
-    private String topic;
-
     @BeforeEach
     public void setup() {
         consumer.resetLatch();
@@ -45,7 +42,7 @@ public class KafkaIntegrationTest {
     public void givenKafkaDockerContainer_whenSendingWithSimpleProducer_thenMessageReceived() throws Exception {
         String data = "Sending with our own simple KafkaProducer";
 
-        producer.send(topic, data);
+        producer.send(data);
 
         boolean messageConsumed = consumer.getLatch().await(10, SECONDS);
         assertThat(messageConsumed).isTrue();

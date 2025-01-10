@@ -17,7 +17,7 @@ public class KafkaConsumer {
 
     private String payload;
 
-    @KafkaListener(topics = "${test.topic}", groupId = "${test.group-id}")
+    @KafkaListener(topics = "input-topic", groupId = "my-group")
     public void receive(ConsumerRecord<?, ?> consumerRecord) {
         log.info("received payload='{}'", consumerRecord.toString());
 

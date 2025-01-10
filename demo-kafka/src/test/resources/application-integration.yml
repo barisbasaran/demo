@@ -10,6 +10,3 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
-test:
-  topic: test-topic-2
-  group-id: baeldung
