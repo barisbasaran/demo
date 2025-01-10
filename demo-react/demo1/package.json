@@ -2,6 +2,7 @@
   "name": "demo1",
   "version": "0.0.0",
   "main": "/src/index.js",
+  "homepage": "/demo1",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
