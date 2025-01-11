@@ -1,4 +1,4 @@
-FROM node:latest  AS demo1builder
+FROM node:latest  AS demo1-builder
 
 RUN mkdir /project
 
@@ -12,7 +12,7 @@ RUN npm install
 
 RUN npm run build
 
-FROM node:latest  AS demo2builder
+FROM node:latest  AS demo2-builder
 
 RUN mkdir /project
 
@@ -30,5 +30,5 @@ FROM nginx:latest
 
 COPY ./nginx.conf /etc/nginx/
 
-COPY --from=demo1builder /project/build/ /home/demo1/
-COPY --from=demo2builder /project/build/ /home/demo2/
+COPY --from=demo1-builder /project/build/ /home/demo1/
+COPY --from=demo2-builder /project/build/ /home/demo2/
