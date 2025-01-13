@@ -3,3 +3,7 @@ h1 {
     margin-top: 0;
     font-size: 22px;
 }
+
+table, th, td {
+    border: 1px solid black;
+}

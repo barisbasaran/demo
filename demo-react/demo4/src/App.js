@@ -1,23 +1,47 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
-function ClientsTable({products}) {
-    const [filterText, setFilterText] = useState('fruit');
-    const [inStockOnly, setInStockOnly] = useState(false);
+function ClientRow({client}) {
     return (
-        <div>
-        </div>
+        <tr>
+            <td>{client.name}</td>
+            <td>{client.email}</td>
+        </tr>
     );
 }
 
-const PRODUCTS = [
-    {category: "Fruits", price: "$1", stocked: true, name: "Apple"},
-    {category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit"},
-    {category: "Fruits", price: "$2", stocked: false, name: "Passionfruit"},
-    {category: "Vegetables", price: "$2", stocked: true, name: "Spinach"},
-    {category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin"},
-    {category: "Vegetables", price: "$1", stocked: true, name: "Peas"}
-];
+function ClientsTable({clients}) {
+    const rows = [];
+    clients.forEach((client) => {
+        rows.push(
+            <ClientRow
+                client={client}
+                key={client.id} />
+        );
+    });
+    return (
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+        </table>
+    );
+}
 
 export default function App() {
-    return <ClientsTable products={PRODUCTS} />;
+    const [clients, setClients] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch("http://localhost:8080/clients")
+                .then((response) => response.json())
+                .then((data) => setClients(data));
+        };
+        fetchData();
+    }, []);
+
+    return <ClientsTable clients={clients} />;
 }
