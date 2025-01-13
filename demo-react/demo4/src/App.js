@@ -29,17 +29,6 @@ function ClientsTable({clients, handleClick}) {
     );
 }
 
-async function fetchClients() {
-    try {
-        const response = await fetch("http://localhost:8080/clients");
-        const clients = await response.json();
-        return clients;
-    } catch (error) {
-        console.error("Error fetching clients", error);
-        return [];
-    }
-}
-
 function ClientDetail({client, setClientId}) {
     return (
         <>
@@ -64,6 +53,16 @@ export default function App() {
     const [clients, setClients] = useState([]);
     const [clientId, setClientId] = useState(null);
 
+    async function fetchClients() {
+        try {
+            const response = await fetch("http://localhost:8080/clients");
+            const clients = await response.json();
+            return clients;
+        } catch (error) {
+            console.error("Error fetching clients", error);
+            return [];
+        }
+    }
     function handleClick(id) {
         setClientId(id);
     }
