@@ -56,8 +56,7 @@ export default function App() {
     async function fetchClients() {
         try {
             const response = await fetch("http://localhost:8080/clients");
-            const clients = await response.json();
-            return clients;
+            return await response.json();
         } catch (error) {
             console.error("Error fetching clients", error);
             return [];
