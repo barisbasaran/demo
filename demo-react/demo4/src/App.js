@@ -1,19 +1,19 @@
 import {useState, useEffect} from 'react';
 
-function ClientRow({client}) {
+function ClientRow({client, handleClick}) {
     return (
         <tr>
-            <td>{client.name}</td>
+            <td><a href="#" onClick={() => handleClick(client.id)}>{client.name}</a></td>
             <td>{client.email}</td>
         </tr>
     );
 }
 
-function ClientsTable({clients}) {
+function ClientsTable({clients, handleClick}) {
     const rows = [];
     clients.forEach((client) => {
         rows.push(
-            <ClientRow key={client.id} client={client} />
+            <ClientRow key={client.id} client={client} handleClick={handleClick}/>
         );
     });
     return (
@@ -40,13 +40,44 @@ async function fetchClients() {
     }
 }
 
+function ClientDetail({client, setClientId}) {
+    return (
+        <>
+            <table>
+                <tbody>
+                <tr>
+                    <td>Name</td>
+                    <td>{client.name}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{client.email}</td>
+                </tr>
+                </tbody>
+            </table>
+            <a href="#" onClick={()=> setClientId(null)}>Back</a>
+        </>
+    );
+}
+
 export default function App() {
     const [clients, setClients] = useState([]);
+    const [clientId, setClientId] = useState(null);
+
+    function handleClick(id) {
+        setClientId(id);
+    }
 
     useEffect(() => {
         fetchClients().then((clients) => {
             setClients(clients);
         });
     }, [])
-    return <ClientsTable clients={clients}/>;
+
+    if (clientId !== null) {
+        const client = clients.find((client) => client.id === clientId);
+        return <ClientDetail client={client} setClientId={setClientId} />;
+    } else {
+        return <ClientsTable clients={clients} handleClick={handleClick}/>;
+    }
 }
