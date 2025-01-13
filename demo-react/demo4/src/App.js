@@ -36,7 +36,7 @@ export default function App() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch("http://localhost:8080/clients")
+            await fetch("http://localhost:8080/clients")
                 .then((response) => response.json())
                 .then((data) => setClients(data));
         };
