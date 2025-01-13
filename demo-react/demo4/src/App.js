@@ -13,9 +13,7 @@ function ClientsTable({clients}) {
     const rows = [];
     clients.forEach((client) => {
         rows.push(
-            <ClientRow
-                client={client}
-                key={client.id}/>
+            <ClientRow key={client.id} client={client} />
         );
     });
     return (
@@ -49,6 +47,6 @@ export default function App() {
         fetchClients().then((clients) => {
             setClients(clients);
         });
-    }, [] )
+    }, [])
     return <ClientsTable clients={clients}/>;
 }
