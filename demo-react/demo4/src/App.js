@@ -44,13 +44,11 @@ async function fetchClients() {
 
 export default function App() {
     const [clients, setClients] = useState([]);
-    const [completed, setCompleted] = useState(false);
 
-    if (!completed) {
+    useEffect(() => {
         fetchClients().then((clients) => {
-            setCompleted(true);
             setClients(clients);
         });
-    }
+    }, [] )
     return <ClientsTable clients={clients}/>;
 }
