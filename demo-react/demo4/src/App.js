@@ -15,7 +15,7 @@ function ClientsTable({clients}) {
         rows.push(
             <ClientRow
                 client={client}
-                key={client.id} />
+                key={client.id}/>
         );
     });
     return (
@@ -31,17 +31,26 @@ function ClientsTable({clients}) {
     );
 }
 
+async function fetchClients() {
+    try {
+        const response = await fetch("http://localhost:8080/clients");
+        const clients = await response.json();
+        return clients;
+    } catch (error) {
+        console.error("Error fetching clients", error);
+        return [];
+    }
+}
+
 export default function App() {
     const [clients, setClients] = useState([]);
+    const [completed, setCompleted] = useState(false);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            await fetch("http://localhost:8080/clients")
-                .then((response) => response.json())
-                .then((data) => setClients(data));
-        };
-        fetchData();
-    }, []);
-
-    return <ClientsTable clients={clients} />;
+    if (!completed) {
+        fetchClients().then((clients) => {
+            setCompleted(true);
+            setClients(clients);
+        });
+    }
+    return <ClientsTable clients={clients}/>;
 }
