@@ -6,10 +6,20 @@ function Header() {
     );
 }
 
+function HomePage() {
+    const homepage = "home";
+    return (
+        <div id={homepage}>
+            {/* Nesting the Header component */}
+            <Header />
+        </div>
+    );
+}
+
 export default function All() {
     return (
-        <div>
-            <Header/>
-        </div>
+        <>
+            <HomePage/>
+        </>
     );
 }
