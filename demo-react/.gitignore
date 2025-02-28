@@ -57,3 +57,4 @@ yarn-error.log*
 package-lock.json
 
 .next
+pnpm-lock*
