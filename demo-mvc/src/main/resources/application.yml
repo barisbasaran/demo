@@ -2,7 +2,7 @@ spring:
   application:
     name: demo-mvc
   datasource:
-    url: jdbc:postgresql://localhost:5432/mydb
+    url: jdbc:postgresql://localhost:5432/clientsdb
     username: postgres
     password: sa
   jpa:
