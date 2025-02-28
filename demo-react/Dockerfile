@@ -2,9 +2,9 @@ FROM node:latest  AS demo1-builder
 
 RUN mkdir /project
 
-COPY ./demo1/public /project/public
-COPY ./demo1/src /project/src
-COPY ./demo1/package.json /project
+COPY demo1-board-game/public /project/public
+COPY demo1-board-game/src /project/src
+COPY demo1-board-game/package.json /project
 
 WORKDIR /project
 
@@ -16,9 +16,9 @@ FROM node:latest  AS demo2-builder
 
 RUN mkdir /project
 
-COPY ./demo2/public /project/public
-COPY ./demo2/src /project/src
-COPY ./demo2/package.json /project
+COPY demo2-simple/public /project/public
+COPY demo2-simple/src /project/src
+COPY demo2-simple/package.json /project
 
 WORKDIR /project
 
