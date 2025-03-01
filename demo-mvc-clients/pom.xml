@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.baris</groupId>
-	<artifactId>demo-mvc</artifactId>
+	<artifactId>demo-mvc-clients</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo-mvc</name>
+	<name>demo-mvc-clients</name>
 	<description>Demo MVC project for Spring Boot</description>
 	<url/>
 	<licenses>

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: demo-mvc
+    name: demo-mvc-clients
   datasource:
     url: jdbc:postgresql://localhost:5432/clientsdb
     username: postgres
